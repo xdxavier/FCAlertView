@@ -70,7 +70,7 @@
         _fullCircleCustomImage = NO;
         _hideSeparatorLineView = NO;
         _customImageScale = 1;
-        _hideCircleCustomImageBorder = NO
+        _hideCircleCustomImageBorder = NO;
         _circleCustomImageBorderWidth = 7.5f;
         _customImageWidth = 60.0f;
         _titleFont = [UIFont systemFontOfSize:18.0f weight:UIFontWeightMedium];
