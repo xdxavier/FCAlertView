@@ -70,6 +70,9 @@
         _fullCircleCustomImage = NO;
         _hideSeparatorLineView = NO;
         _customImageScale = 1;
+        _hideCircleCustomImageBorder = NO
+        _circleCustomImageBorderWidth = 7.5f;
+        _customImageWidth = 60.0f;
         _titleFont = [UIFont systemFontOfSize:18.0f weight:UIFontWeightMedium];
         _subtitleFont = nil;
         defaultSpacing = [self configureAVWidth];
@@ -468,12 +471,15 @@
                                                                                 self.frame.size.width,
                                                                                 alertView.bounds.size.height)
                                                         cornerRadius:0];
-    UIBezierPath *circlePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(alertViewFrame.size.width/2 - 33.75f,
-                                                                                  -33.75f,
-                                                                                  67.5f,
-                                                                                  67.5f)
-                                                          cornerRadius:radius];
-    [rectPath appendPath:circlePath];
+    if (!self.hideCircleCustomImageBorder) {
+        CGFloat circleWidth = self.circleCustomImageBorderWidth + self.customImageWidth;
+        UIBezierPath *circlePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(alertViewFrame.size.width/2 - circleWidth/2,
+                                                                                      -circleWidth/2,
+                                                                                      circleWidth,
+                                                                                      circleWidth)
+                                                              cornerRadius:radius];
+        [rectPath appendPath:circlePath];
+    }
     [rectPath setUsesEvenOddFillRule:YES];
     
     CAShapeLayer *fillLayer = [CAShapeLayer layer];
@@ -922,7 +928,7 @@
     
     if (!_fullCircleCustomImage) {
         circleLayer = [CAShapeLayer layer];
-        [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(alertViewContents.frame.size.width/2 - 30.0f, -30.0f, 60.0f, 60.0f)] CGPath]];
+        [circleLayer setPath:[[UIBezierPath bezierPathWithOvalInRect:CGRectMake(alertViewContents.frame.size.width/2 - self.customImageWidth/2, -self.customImageWidth/2, self.customImageWidth, self.customImageWidth)] CGPath]];
         if (!self.alertBackgroundColor)
             [circleLayer setFillColor:[UIColor whiteColor].CGColor];
         else
@@ -934,7 +940,7 @@
     if ([alertType isEqualToString:@"Progress"] && _colorScheme != nil)
         [circleLayer setFillColor:[self.colorScheme CGColor]];
     
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(alertViewContents.frame.size.width/2 - 30.0f, -30.0f, 60.0f, 60.0f)];
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(alertViewContents.frame.size.width/2 - self.customImageWidth/2, -self.customImageWidth/2, self.customImageWidth, self.customImageWidth)];
     if (circleLayer.fillColor == [UIColor whiteColor].CGColor)
         [spinner setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     else

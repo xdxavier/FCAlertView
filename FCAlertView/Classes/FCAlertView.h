@@ -109,6 +109,9 @@
 @property BOOL fullCircleCustomImage;
 @property BOOL hideSeparatorLineView;
 @property CGFloat customImageScale;
+@property BOOL hideCircleCustomImageBorder;
+@property CGFloat circleCustomImageBorderWidth;
+@property CGFloat customImageWidth;
 
 // Default Types of Alerts
 
